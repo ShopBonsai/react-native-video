@@ -107,6 +107,7 @@ class ReactExoplayerView extends FrameLayout implements
     private boolean isFullscreen;
     private boolean isInBackground;
     private boolean isPaused;
+    private boolean isMuted;
     private boolean isBuffering;
     private float rate = 1f;
 
@@ -247,6 +248,7 @@ class ReactExoplayerView extends FrameLayout implements
             player.setMetadataOutput(this);
             exoPlayerView.setPlayer(player);
             audioBecomingNoisyReceiver.setListener(this);
+            setMutedModifier(isMuted);
             setPlayWhenReady(!isPaused);
             playerNeedsSource = true;
 
@@ -869,6 +871,7 @@ class ReactExoplayerView extends FrameLayout implements
     }
 
     public void setMutedModifier(boolean muted) {
+        isMuted = muted;
         if (player != null) {
             player.setVolume(muted ? 0 : 1);
         }
